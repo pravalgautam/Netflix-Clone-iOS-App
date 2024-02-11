@@ -19,6 +19,10 @@ class HomeViewController: UIViewController{
         return table
     }()
     
+
+    
+
+    
     private func configureNavbar() {
          var image = UIImage(named: "logo")
          image = image?.withRenderingMode(.alwaysOriginal)
@@ -42,6 +46,7 @@ class HomeViewController: UIViewController{
         configureNavbar()
         let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homefeedTable.tableHeaderView = headerView
+    
 
         
     }
@@ -75,6 +80,68 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource{
         }
       
         cell.backgroundColor = .red
+        
+        
+
+        switch indexPath.section{
+        case Section.Trendingmovies.rawValue:
+            
+            ApiCaller.shared.getTrendingMovies { result in
+                switch result{
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+            
+        case Section.TrendingTv.rawValue:
+            ApiCaller.shared.getTrendingTv { result in
+                switch result{
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+        case Section.Popular.rawValue:
+            ApiCaller.shared.getPopular { result in
+                switch result{
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+        case Section.Upcoming.rawValue:
+            ApiCaller.shared.getUpcomingMovies { result in
+                switch result{
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.TopRated.rawValue:
+            ApiCaller.shared.getTopRated { result in
+                switch result{
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+        default:
+            return UITableViewCell()
+        }
+        
+//        cell.configure(with: [Title])
+        
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,7 +158,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource{
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x:header.bounds.origin.x + 20 ,y: header.bounds.origin.y,width: 100,height: header.bounds.height)
         header.textLabel?.textColor =  .white
-        header.textLabel?.text =  header.textLabel?.text?.capitalized
+        header.textLabel?.text =  header.textLabel?.text?.capitalizeFirstLetter()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
