@@ -10,7 +10,7 @@ import UIKit
 class HomeViewController: UIViewController{
     
     
-    let sectionTitle : [String] = ["Trending movies","Popular", "Trending tv", "Upcoming Movies"," Top Rated"]
+    let sectionTitle: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
     
     private let homefeedTable :  UITableView = {
         
@@ -22,21 +22,18 @@ class HomeViewController: UIViewController{
 
     
 
-    
     private func configureNavbar() {
-         var image = UIImage(named: "logo")
-         image = image?.withRenderingMode(.alwaysOriginal)
-         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
-    
-         navigationItem.rightBarButtonItems = [
-             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
-         ]
-         navigationController?.navigationBar.tintColor = .white
-       
-
-      
-     }
+        var image = UIImage(named: "logo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+        ]
+        navigationController?.navigationBar.tintColor = .white
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
